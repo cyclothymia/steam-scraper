@@ -5,7 +5,7 @@ from modules.userscrape import multiUser
 
 if __name__ == "__main__":
     freeze_support()
-    jsonpath = "data/json/users/"
+    jsonpath = os.path.join("data", "json", "users")
     if not os.path.exists(jsonpath):
         os.makedirs(jsonpath)
     
