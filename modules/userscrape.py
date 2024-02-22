@@ -9,7 +9,7 @@ from datetime import datetime
 
 class singleUser:
     def __init__(self):
-        self.jsonpath = "data/json/users/"
+        self.jsonpath = os.path.join("data", "json", "users")
         self.url = "https://steamcommunity.com/id/"
         self.urlID = "https://steamcommunity.com/profiles/"
         self.urlxml = "?xml=1"
@@ -21,7 +21,7 @@ class singleUser:
         else:
             url = self.url + steamID + self.urlxml
         
-        filepath = f"{self.jsonpath}{steamID}.json"
+        filepath = os.path.join(self.jsonpath, f"{steamID}.json")
         if os.path.exists(filepath):
             print(f"[-] JSON file already exists for {steamID}")
             return
@@ -98,7 +98,7 @@ class singleUser:
 
 class multiUser:
     def __init__(self):
-        self.jsonpath = "data/json/users/"
+        self.jsonpath = os.path.join("data", "json", "users")
         self.url = "https://steamcommunity.com/id/"
         self.urlID = "https://steamcommunity.com/profiles/"
         self.urlxml = "?xml=1"
@@ -110,7 +110,7 @@ class multiUser:
         else:
             url = self.url + steamID + self.urlxml
         
-        filepath = f"{self.jsonpath}{steamID}.json"
+        filepath = os.path.join(self.jsonpath, f"{steamID}.json")
         if os.path.exists(filepath):
             print(f"[-] JSON file already exists for {steamID}")
             return
