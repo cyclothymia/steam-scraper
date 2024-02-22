@@ -9,15 +9,15 @@ from datetime import datetime
 
 class singleGroup:
     def __init__(self):
-        self.jsonpath = "data/json/groups/"
-        self.txtpath = "data/txt/groups/"
+        self.jsonpath = os.path.join("data", "json", "groups")
+        self.txtpath = os.path.join("data", "txt", "groups")
         self.url = "https://steamcommunity.com/groups/"
         self.urlxml = "/memberslistxml/?xml=1"
         self.database = "data/database.db"
     
     def get(self, groupID):
         url = self.url + groupID + self.urlxml
-        filepath = f"{self.jsonpath}{groupID}.json"
+        filepath = os.path.join(self.jsonpath, f"{groupID}.json")
         if os.path.exists(filepath):
             print(f"[-] JSON file already exists for {groupID}")
             return
@@ -50,6 +50,7 @@ class singleGroup:
     
     def parseJSONVariables(self, groupID):
         groupID = groupID
+        txt_path = os.join.path(self.txtpath, f"{groupID}.txt")
         self.get(groupID)
         data = self.parseJSON(groupID)
         if data:
@@ -73,9 +74,9 @@ class singleGroup:
                 dateScraped = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 
                 members = data['memberList']['members']['steamID64']
-                if not os.path.exists(f"{self.txtpath}{groupID}.txt"):
-                    os.makedirs(f"{self.txtpath}")
-                    with open(f"{self.txtpath}{groupID}.txt", "w") as f:
+                if not os.path.exists(txt_path):
+                    os.makedirs(txt_path)
+                    with open(txt_path, "w") as f:
                         for member in members:
                             f.write(member + "\n")
                     print(f"[+] Text file created for /groups/{groupID}")
@@ -99,15 +100,15 @@ class singleGroup:
 
 class multiGroup:
     def __init__(self):
-        self.jsonpath = "data/json/groups/"
-        self.txtpath = "data/txt/groups/"
+        self.jsonpath = os.path.join("data", "json", "groups")
+        self.txtpath = os.path.join("data", "txt", "groups")
         self.url = "https://steamcommunity.com/groups/"
         self.urlxml = "/memberslistxml/?xml=1"
         self.database = "data/database.db"
     
     def get(self, groupID):
         url = self.url + groupID + self.urlxml
-        filepath = f"{self.jsonpath}{groupID}.json"
+        filepath = os.path.join(self.jsonpath, f"{groupID}.json")
         if os.path.exists(filepath):
             print(f"[-] JSON file already exists for {groupID}")
             return
@@ -129,7 +130,7 @@ class multiGroup:
     
     def getMulti(self, groupID, page):
         url = self.url + groupID + self.urlxml + f"&p={page}"
-        filepath = f"{self.jsonpath}{groupID}_{page}.json"
+        filepath = os.path.join(self.jsonpath, f"{groupID}_{page}.json")
         if os.path.exists(filepath):
             print(f"[-] JSON file already exists for {groupID}_{page}")
             return
@@ -177,6 +178,7 @@ class multiGroup:
     
     def parseJSONVariables(self, groupID):
         groupID = groupID
+        txt_path = os.join.path(self.txtpath, f"{groupID}.txt")
         page = 1
         self.get(groupID)
         data = self.parseJSON(groupID)
@@ -208,12 +210,12 @@ class multiGroup:
                 conn.commit()
                 
                 while page <= int(totalPages):
-                    if not os.path.exists(f"{self.txtpath}{groupID}.txt"):
-                        os.makedirs(f"{self.txtpath}")
+                    if not os.path.exists(txt_path):
+                        os.makedirs(txt_path)
                     self.getMulti(groupID, page)
                     data = self.parseJSONMulti(groupID, page)
                     members = data['memberList']['members']['steamID64']
-                    with open(f"{self.txtpath}{groupID}.txt", "a") as f:
+                    with open(txt_path, "a") as f:
                         for member in members:
                             f.write(member + "\n")
                     print(f"[+] Text file updated for /groups/{groupID}")
