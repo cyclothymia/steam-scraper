@@ -3,7 +3,7 @@ from modules.tables import Table
 from modules.groupscrape import singleGroup
 
 if __name__ == "__main__":
-    jsonpath = "data/json/groups/"
+    jsonpath = os.path.join("data", "json", "groups")
     if not os.path.exists(jsonpath):
         os.makedirs(jsonpath)
 
