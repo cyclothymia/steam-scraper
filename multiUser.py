@@ -12,7 +12,7 @@ if __name__ == "__main__":
     table = Table()
     table.create_table()
     scraper = multiUser()
-    file_path = "steamids.txt"
+    file_path = "ENTER FILE NAME HERE"
     with open(file_path) as steamIDs:
         lines = steamIDs.readlines()
     pool = Pool(processes=100)
