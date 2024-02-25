@@ -9,6 +9,6 @@ if __name__ == "__main__":
 
     scraper = singleGroup()
     table = Table()
-    groupID = "valve"
+    groupID = "ENTER GROUP ID HERE"
     table.create_table()
     scraper.parseJSONVariables(groupID)
