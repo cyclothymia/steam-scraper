@@ -9,6 +9,6 @@ if __name__ == "__main__":
 
     scraper = singleUser()
     table = Table()
-    steamID = "khmora"
+    steamID = "ENTER STEAM ID HERE"
     table.create_table()
     scraper.parseJSONVariables(steamID)
