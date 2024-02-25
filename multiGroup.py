@@ -9,6 +9,6 @@ if __name__ == "__main__":
     
     scraper = multiGroup()
     table = Table()
-    groupID = "hentaii"
+    groupID = "ENTER GROUP ID HERE"
     table.create_table()
     scraper.parseJSONVariables(groupID)
